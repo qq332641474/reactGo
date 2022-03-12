@@ -1,0 +1,79 @@
+# ReactGo 配置文件
+
+# 是否开启调试模式
+#
+debug: true
+
+# WEB 静态文件目录，默认是 ./web
+# 只有当命令行选项 -webfs=osdir 时，此选项才有意义
+#
+webdir: ./web
+
+# 当通过 Nginx 反向代理时，设置为 true
+#
+proxy: false
+
+# 日志配置
+#
+log:
+  # 日志文件路径（是目录名，不是文件名）
+  #
+  path: /tmp/reactgo
+
+# HTTP 服务器配置
+#
+server:
+  # 服务器对外的访问 URL(包括端口)，例如 http://localhost:3000
+  #
+  # 如果该选项为空，那么 URL 将从下面的 3 个选项获取：
+  # secure, domains, bind
+  #
+  # httpurl = (secure ? https : http) :// (domains[0]) : (bind port)
+  #
+  httpurl: http://localhost:4444
+
+  # 服务器绑定地址和端口，例如 127.0.0.1:8080 或者 :8080
+  # 可以为空，如果为空，将使用协议默认的端口，绑定到所有接口(0.0.0.0)
+  #
+  bind: :4444
+
+  # 是否允许 TLS(https)
+  # 如果不是通过反向代理，那么应该设置为 true，并提供相应的证书
+  #
+  # secure: true
+
+  # 自动从 Let's Encrypt 或其它支持 ACME 的 CA 获取证书
+  # 如果允许 autotls，那么 tls_key 和 tls_cert 将被忽略
+  #
+  autotls:
+    enabled: false
+    domains: [ your-domain, your-domain2 ]
+    cachedir: /tmp
+    email: service@lucky-byte.com
+
+  # TLS 私钥和证书文件
+  #
+  tlscrt: cert.pem
+  tlskey: key.pem
+
+# 数据库配置
+#
+database:
+  # 数据库驱动，支持 sqlite, pgx, mysql
+  #
+  driver: sqlite
+
+  # 数据源，参考驱动文档
+  #
+  dsn: /tmp/reactgo.db
+
+# 任务配置
+#
+task:
+  # 执行文件路径
+  #
+  path: ../jobs
+
+  # 环境变量，名称会转换为大些字母
+  env:
+    name: value
